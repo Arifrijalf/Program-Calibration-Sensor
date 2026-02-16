@@ -73,13 +73,13 @@ Jika board belum terdeteksi, buka folder `Driver/` dan install driver CH340 yang
 ### Langkah 2: Upload Program
 
 **Untuk Arduino Uno:**
-1.  Buka folder `Program/Universal Sensor Diagnostic & Calibration Tool (Uno)`.
+1.  Buka folder `Program/Arduino_Uno`.
 2.  Buka file `.ino` di Arduino IDE.
 3.  Pilih Board: **Arduino Uno**.
 4.  Upload & Buka Serial Monitor (Baudrate: **9600**).
 
 **Untuk ESP32:**
-1.  Buka folder `Program/Universal Sensor Diagnostic & Calibration Tool (ESP32)`.
+1.  Buka folder `Program/ESP32`.
 2.  Install Library **ESP32Servo** via *Library Manager* di Arduino IDE.
 3.  Pilih Board: **DOIT ESP32 DEVKIT V1**.
 4.  Upload & Buka Serial Monitor (Baudrate: **115200**).
