@@ -1,7 +1,7 @@
 /*
   PROJECT: ALL-IN-ONE SENSOR DIAGNOSTIC TOOL
   AUTHOR: Arif Rijal Fadhilah
-  REPO: github.com/username/arduino-sensor-calibration (Contoh)
+  REPO: https://github.com/Arifrijalf/Program-Calibration-Sensor
   
   DESKRIPSI:
   Program ini dirancang untuk menguji fungsionalitas dasar dari berbagai 
@@ -91,5 +91,5 @@ void loop() {
   Serial.print(" \t| SERVO: ");
   Serial.println(servoPos);
 
-  delay(200); // Delay agar pembacaan stabil dan tidak terlalu cepat
+  delay(200); // Delay agar pembacaan stabil dan tidak terlalu cepat yang mengakibatkan Error
 }
