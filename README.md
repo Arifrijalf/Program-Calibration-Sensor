@@ -23,8 +23,8 @@ Berisi gambar referensi diagram pin (*pinout map*).
 
 ### 3. `Program/`
 Folder utama yang berisi *source code* (sketch).
-* **Universal Sensor Diagnostic & Calibration Tool (Uno)**: Kode khusus Arduino Uno.
-* **Universal Sensor Diagnostic & Calibration Tool (ESP32)**: Kode khusus ESP32 (menggunakan library berbeda).
+* **Arduino_Uno**: Kode khusus Arduino Uno.
+* **ESP32**: Kode khusus ESP32 (menggunakan library berbeda).
 
 ---
 
