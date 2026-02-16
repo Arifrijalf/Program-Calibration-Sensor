@@ -1,42 +1,67 @@
-# 🛠️ ESP32 Sensor Diagnostic & Calibration Tool
+# 🛠️ Universal Sensor Diagnostic & Calibration Tool (Arduino & ESP32)
 
-Repository ini berisi *source code* untuk melakukan pengujian cepat (*sanity check*) dan kalibrasi berbagai modul sensor elektronik menggunakan **ESP32 DOIT DevKit V1**.
+Repository ini berisi kumpulan *source code* untuk melakukan pengujian cepat (*sanity check*), kalibrasi, dan pengecekan kondisi berbagai modul sensor elektronik.
 
-Alat ini sangat berguna untuk memastikan komponen berfungsi dengan baik sebelum dipasang ke proyek utama atau Tugas Akhir.
+Mendukung dua *platform* mikrokontroler paling populer:
+1.  **Arduino Uno** (ATmega328P) - 5V Logic
+2.  **ESP32** (DOIT DevKit V1) - 3.3V Logic
+
+## 📂 Struktur Folder
+* `/arduino_uno_version`: Kode khusus untuk Arduino Uno.
+* `/esp32_version`: Kode khusus untuk ESP32 (menggunakan library berbeda).
 
 ## 📋 Fitur Utama
-Program `Multi_Sensor_Tester_ESP32.ino` memungkinkan pengujian simultan untuk:
+Program ini ("All-in-One Tester") memungkinkan pengujian simultan untuk:
 1.  **Ultrasonic (HC-SR04)**: Mengukur jarak dan validasi respon sensor.
 2.  **Servo Motor (SG90/MG995)**: Melakukan *sweep* otomatis (0°-180°) untuk cek gear.
-3.  **Analog Sensors (Soil Moisture, Rain, LDR, Flex)**: Membaca nilai ADC 12-bit (0-4095) dan tegangan.
+3.  **Analog Sensors (Soil Moisture, Rain, LDR, Flex)**: Membaca nilai mentah (Raw) dan voltase.
 4.  **Digital Sensors (IR Obstacle, Flame, Button)**: Cek logika HIGH/LOW.
 
-## 🔌 Wiring (Pinout Konfigurasi)
-Program ini dikonfigurasi untuk **ESP32 DOIT DevKit V1** (38 Pin).
+---
 
+## 🔌 Wiring (Konfigurasi Pin)
+
+### 1. Versi Arduino Uno (5V)
+| Komponen | Pin Sensor | Pin Arduino | Keterangan |
+| :--- | :--- | :--- | :--- |
+| **Ultrasonic** | Trig | **Pin 9** | Output |
+| | Echo | **Pin 10** | Input |
+| **Servo** | Signal | **Pin 6** | Pin PWM |
+| **Analog Test** | OUT | **Pin A0** | Universal Analog Input |
+| **Digital Test** | OUT | **Pin 2** | Universal Digital Input |
+
+### 2. Versi ESP32 (3.3V)
 | Komponen | Pin Sensor | Pin ESP32 (GPIO) | Keterangan |
 | :--- | :--- | :--- | :--- |
-| **Ultrasonic** | VCC | VIN / 5V | Butuh 5V |
-| | GND | GND | - |
-| | Trig | **D5** (GPIO 5) | Output Trigger |
-| | Echo | **D18** (GPIO 18) | Input Echo |
-| **Servo** | VCC | VIN / 5V | Kabel Merah |
-| | GND | GND | Kabel Coklat |
-| | Signal | **D13** (GPIO 13) | Kabel Oranye |
-| **Analog Test** | OUT | **D34** (GPIO 34) | *Input Only Pin* (Aman untuk ADC) |
+| **Ultrasonic** | Trig | **D5** (GPIO 5) | Output |
+| | Echo | **D18** (GPIO 18) | Input |
+| **Servo** | Signal | **D13** (GPIO 13) | Output PWM |
+| **Analog Test** | OUT | **D34** (GPIO 34) | *Input Only* (Aman untuk ADC) |
 | **Digital Test** | OUT | **D4** (GPIO 4) | Universal I/O |
 
-> ⚠️ **PERHATIAN:** Pastikan tegangan input ke Pin GPIO ESP32 tidak melebihi 3.3V secara berlebihan. Gunakan *voltage divider* jika perlu, meskipun untuk sensor standar biasanya aman.
+> ⚠️ **PERHATIAN TEGANGAN:**
+> * **Arduino Uno:** Bekerja pada logika **5V**. Aman untuk hampir semua sensor standar.
+> * **ESP32:** Bekerja pada logika **3.3V**. Hati-hati saat menghubungkan sensor yang mengeluarkan output 5V. Gunakan *voltage divider* jika ragu.
+
+---
 
 ## 🚀 Cara Menggunakan
-1.  Install **Arduino IDE**.
-2.  Install Board ESP32 di *Board Manager*.
-3.  Install Library **ESP32Servo** by Kevin Harrington via *Library Manager*.
-4.  Buka file `.ino` dan upload ke board (Baudrate upload: **115200**).
-5.  Buka **Serial Monitor** dan set baudrate ke **115200**.
 
-## 📊 Contoh Output Serial Monitor
-```text
-Jarak: 45 cm | A0(IO34): 2048 (1.65V) | D4: 1 | Servo: 90
-Jarak: 44 cm | A0(IO34): 1023 (0.82V) | D4: 0 | Servo: 100
-...
+### Untuk Arduino Uno:
+1.  Buka folder `arduino_uno_version`.
+2.  Buka file `.ino` di Arduino IDE.
+3.  Pilih Board: **Arduino Uno**.
+4.  Upload & Buka Serial Monitor (Baudrate: **9600**).
+
+### Untuk ESP32:
+1.  Buka folder `esp32_version`.
+2.  Install Library **ESP32Servo** via *Library Manager*.
+3.  Pilih Board: **DOIT ESP32 DEVKIT V1**.
+4.  Upload & Buka Serial Monitor (Baudrate: **115200**).
+
+## 📊 Perbedaan Pembacaan ADC
+* **Arduino Uno:** Nilai 0 - 1023 (10-bit resolution).
+* **ESP32:** Nilai 0 - 4095 (12-bit resolution).
+
+---
+*Dibuat oleh Arif Rijal Fadhilah*
